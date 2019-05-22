@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block body %}
+ <h1>Dashboard<small>Welcome {{session.username}} </small></h1>
+ <a class = "btn btn-success" href = "/add_blog_post">Add Blog Post</a>
+ <hr>
+ <table class='table table-striped'>
+    <tr>
+         <th>ID</th>
+         <th>Title</th>
+         <th>Author</th>
+         <th>Date</th>
+         <th></th>
+         <th></th>
+    </tr>
+    {% for blog in blogs %}
+        <tr>
+            <td>{{blog.id}}</td>
+            <td>{{blog.title}}</td>
+            <td>{{blog.author}}</td>
+            <td>{{blog.create_date}}</td>
+            <td><a href="edit_blog_post/{{blog.id}}" class="btn btn-primary float-right">Edit</a></td>
+            <td><form action="{{url_for('delete_blog', id = blog.id)}}" method="post">
+                <input type="hidden" name ="_method" value="DELETE" >
+                <input type="submit" value="Delete", class="btn btn-danger">
+            </form></td>
+            
+        </tr>
+    {% endfor %}
+ </table>
+{% endblock %}
